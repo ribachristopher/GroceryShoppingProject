@@ -1,5 +1,7 @@
 package Chris;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GroceryItems {
@@ -7,10 +9,12 @@ public class GroceryItems {
     final String[] groceryItemNames = {"Salad", "Ice Cream", "Chicken", "Broccoli"};
     final Float[] groceryItemPrices = {6.75f, 3.99f, 11.99f, 1.47f};
     int selectedItem;
+    String selectAgainStr;
     boolean validInputtedOptionCheck;
     float payAmount;
     float change;
     float insufficientPayment;
+
 
     void printAndSelectGroceryOptions(){
         System.out.println("(0) " + groceryItemNames[0] + " = $" + groceryItemPrices[0]);
@@ -35,9 +39,26 @@ public class GroceryItems {
                 System.out.println("valid option selected: " + validInputtedOptionCheck);
                 System.out.println();
                 System.out.println("You selected " + groceryItemNames[selectedItem] + " - $" + groceryItemPrices[selectedItem]);
-            }
+                System.out.println("Would you like to select another item? Y/N");
+                selectAgainStr = userInput.next();
+                selectAgain();
+                            }
         while (validInputtedOptionCheck == false){
             selectionVerification();
+        }
+    }
+    void selectAgain(){
+        while (selectAgainStr.equalsIgnoreCase("Y") || selectAgainStr.equalsIgnoreCase ("Yes")) {
+            printAndSelectGroceryOptions();
+            selectionVerification();
+        }
+        if (selectAgainStr.equalsIgnoreCase("N") || selectAgainStr.equalsIgnoreCase ("No")){
+            return;
+        }
+        else {
+            System.out.println("Would you like to select another item? Y/N");
+            selectAgainStr = userInput.next();
+            selectAgain();
         }
     }
     void payForItem(){
